@@ -1,0 +1,6 @@
+export.png
+size:537,71
+filter:Linear,Linear
+pma:true
+canh_cay
+bounds:2,2,533,67

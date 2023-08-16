@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 28c926cc6263ac44593bd79b0081fc1e
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - VNF-VAGRounded
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 0c58d2408456d264387a14efea952e71, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
