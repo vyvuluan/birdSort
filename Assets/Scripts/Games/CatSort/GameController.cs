@@ -1,15 +1,12 @@
-﻿using Codice.Client.BaseCommands;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Extensions;
 using Services;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static Codice.CM.WorkspaceServer.WorkspaceTreeDataStore;
 
 [System.Serializable]
 public class Rollback
@@ -17,7 +14,7 @@ public class Rollback
     private Bar barSelected;
     private Bar barSelectedTarget;
     private List<Cat> cats;
-    
+
     public Bar BarSelected { get => barSelected; set => barSelected = value; }
     public Bar BarSelectedTarget { get => barSelectedTarget; set => barSelectedTarget = value; }
     public List<Cat> Cats { get => cats; set => cats = value; }
@@ -62,7 +59,7 @@ public class GameController : MonoBehaviour
 
         playerService = gameServices.GetService<PlayerService>();
         adsService = gameServices.GetService<AdsService>();
-        displayService = gameServices.GetService<DisplayService>();  
+        displayService = gameServices.GetService<DisplayService>();
         iapService = gameServices.GetService<IAPService>();
         audioService = gameServices.GetService<AudioService>();
         InitSkinItem();
@@ -75,7 +72,7 @@ public class GameController : MonoBehaviour
             playerService.SetQuantityBoosterNextMap(4);
             playerService.SetQuantityBoosterRollback(4);
             playerService.SetStartGameFirstTime(1);
-            
+
         }
         int level = playerService.GetLevel();
         int score = playerService.GetScore();
@@ -94,7 +91,7 @@ public class GameController : MonoBehaviour
         catSelected = new();
 
 
-        if(iapService.IsRemoveAds() == false)
+        if (iapService.IsRemoveAds() == false)
         {
             adsService.ShowBannerAds();
         }
@@ -103,38 +100,38 @@ public class GameController : MonoBehaviour
         adsService.OnRewardedAdsLoad = view.HideBtnWatchAds;
 
         Debug.Log(playerService.GetAds());
-        if(playerService.GetAds() == 2)
+        if (playerService.GetAds() == 2)
         {
             playerService.SetAds(0);
             Debug.Log("InterstitialAds");
             InterstitialAds();
-            
-        }    
+
+        }
 
         model.ThrowIfNull();
         view.ThrowIfNull();
         catSpawner.ThrowIfNull();
         barSpawner.ThrowIfNull();
         panelShop.ThrowIfNull();
-        
-        
+
+
 
     }
     public void InterstitialAds()
     {
-        if(adsService.IsInterstitialReady() == true && iapService.IsRemoveAds() == false)
+        if (adsService.IsInterstitialReady() == true && iapService.IsRemoveAds() == false)
         {
-            adsService.OnInterstitialClose = () => 
+            adsService.OnInterstitialClose = () =>
             {
-                
+
             };
             adsService.ShowLimitInterstitialAd();
         }
         else
         {
 
-        }    
-    }    
+        }
+    }
     public void AvoidBanner(float bannerHeight)
     {
         //Debug.Log(view.Main.scaleFactor);
@@ -185,8 +182,8 @@ public class GameController : MonoBehaviour
             Debug.Log("fail");
         });
         adsService.ShowRewardedAd();
-        
-    }    
+
+    }
     private IEnumerator SpamCoin(int quantity, int coin, int totalCoin)
     {
         for (int i = 0; i < quantity; i++)
@@ -205,7 +202,7 @@ public class GameController : MonoBehaviour
                 });
             });
         }
-    }    
+    }
     private void StartCoroutineIncrementCoin(int coin, int totalCoin)
     {
         StartCoroutine(IncrementCoin(coin, totalCoin));
@@ -229,7 +226,7 @@ public class GameController : MonoBehaviour
         view.SetScore(score);
         view.SetMapLevel(mapLevel);
         view.SetBackground(skins[FindSkinIndexById(skinBG)].Image);
-    }    
+    }
 
     private void Start()
     {
@@ -242,20 +239,20 @@ public class GameController : MonoBehaviour
     public void InitSkinItem()
     {
         //copy list skinItem
-        this.skins = model.SkinItems.Select(n => new SkinItem(n.Id,n.Price, n.Status, n.SkinType, n.Image,n.LevelUnlock,n.PrefabBird)).ToList();
+        this.skins = model.SkinItems.Select(n => new SkinItem(n.Id, n.Price, n.Status, n.SkinType, n.Image, n.LevelUnlock, n.PrefabBird)).ToList();
         List<int> skinOwned = new();
-        List<int> skinBirdUsing =new();
+        List<int> skinBirdUsing = new();
         int bgUsing = 0;
         int barUsing = 0;
         if (playerService.GetStartGameFirstTime() == 0)
         {
             foreach (var skinItem in skins)
             {
-                if(skinItem.Status == StatusState.Own || skinItem.Status == StatusState.Equip)
+                if (skinItem.Status == StatusState.Own || skinItem.Status == StatusState.Equip)
                 {
                     skinOwned.Add(skinItem.Id);
                 }
-                if(skinItem.Status == StatusState.Equip)
+                if (skinItem.Status == StatusState.Equip)
                 {
                     switch (skinItem.SkinType)
                     {
@@ -269,7 +266,7 @@ public class GameController : MonoBehaviour
                             bgUsing = skinItem.Id;
                             break;
                     }
-                }    
+                }
             }
             playerService.SetSkinOwned(skinOwned);
             playerService.SetSkinBG(bgUsing);
@@ -282,7 +279,7 @@ public class GameController : MonoBehaviour
             skinBirdUsing = playerService.GetSkinCat();
             bgUsing = playerService.GetSkinBG();
             barUsing = playerService.GetSkinBar();
-            
+
             foreach (var skin in skins)
             {
                 if (skinOwned.Contains(skin.Id))
@@ -298,20 +295,20 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < skinBirdUsing.Count; i++)
             {
                 int index = FindSkinIndexById(skinBirdUsing[i]);
-                if(index > 0)
+                if (index > 0)
                 {
                     SkinItem temp = skins[index];
                     skins[index] = skins[i];
                     skins[i] = temp;
-                }    
+                }
             }
         }
         panelShop.Init(skins, ProcessBuy, ProcessUsing, playerService.GetLevel());
-    }    
+    }
 
     private int FindSkinIndexById(int id)
     {
-        for(int i =0; i< skins.Count; i++)
+        for (int i = 0; i < skins.Count; i++)
         {
             if (skins[i].Id == id)
             { return i; }
@@ -327,39 +324,39 @@ public class GameController : MonoBehaviour
         view.SetQuantityBoosterAddbarText(quantityBoosterAddBar);
         view.SetQuantityBoosterRollback(quantityBoosterRollback, stackRollback.Count);
         view.SetQuantityBoosterNextMap(quantityBoosterNextMap);
-    }    
+    }
     private void Update()
     {
-        if(!isPause)
+        if (!isPause)
         {
-            if(isCheckInput)
+            if (isCheckInput)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
                     InputControl();
                 }
-            }    
-            
+            }
+
             //if (stackRollback.Count <= 0) view.ImageButtonRollback(0.5f);
             CheckBooster();
         }
         if (barSpawner.MaxCountJump == 0)
         {
-            if(playerService.GetLevel() >= model.Map.Count)
+            if (playerService.GetLevel() >= model.Map.Count)
             {
                 playerService.SetLevel(1);
             }
             isPause = true;
             view.PanelGameOver(true);
         }
-        else if(barSpawner.MaxCountJump < 0)
+        else if (barSpawner.MaxCountJump < 0)
         {
             view.JumpCount(false);
         }
     }
     private void ClickCatSelect(GameObject gObject)
     {
-        if(gObject.CompareTag(Constanst.NameBarLeftTag) || gObject.CompareTag(Constanst.NameBarRightTag))
+        if (gObject.CompareTag(Constanst.NameBarLeftTag) || gObject.CompareTag(Constanst.NameBarRightTag))
         {
             barSelected = gObject.GetComponent<Bar>();
             catSelected = barSelected.SelectCat();
@@ -370,9 +367,10 @@ public class GameController : MonoBehaviour
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+        audioService.PlaySelect();
         if (barSelected == null)
         {
-            if (hit.collider != null )
+            if (hit.collider != null)
             {
                 ClickCatSelect(hit.collider.gameObject);
             }
@@ -437,7 +435,7 @@ public class GameController : MonoBehaviour
                     }
 
 
-                    
+
                 }
                 else
                 {
@@ -446,6 +444,7 @@ public class GameController : MonoBehaviour
                         GameObject tempGameObject = hit.collider.gameObject;
                         for (int i = 0; i < catSelected.Count; i++)
                         {
+                            audioService.PlayFly();
                             if (i == catSelected.Count - 1)
                             {
                                 catSelected[i].OnSetAnimBar = barSelectedTarget.SetAnimation;
@@ -492,15 +491,15 @@ public class GameController : MonoBehaviour
                     }
                 }
 
-                
+
             }
-            
+
         }
-    }  
+    }
     public void AddBooster()
     {
         int quantityBoosterAddBar = playerService.GetQuantityBoosterAddBar();
-        if(quantityBoosterAddBar > 0) 
+        if (quantityBoosterAddBar > 0)
         {
             if (barSpawner.BarQuantity < 10)
             {
@@ -509,7 +508,7 @@ public class GameController : MonoBehaviour
                 playerService.SetQuantityBoosterAddBar(quantityBoosterAddBar - 1);
             }
             else StartCoroutine(OnTextStatusOneSecond(Constanst.TextMaxBranches));
-            
+
         }
     }
 
@@ -552,11 +551,11 @@ public class GameController : MonoBehaviour
             }
             playerService.SetQuantityBoosterRollback(quantityBoosterRollback - 1);
         }
-    }    
+    }
     public void BoosterNextMapLevel()
     {
         int quantityBoosterNextMap = playerService.GetQuantityBoosterNextMap();
-        if(quantityBoosterNextMap > 0)
+        if (quantityBoosterNextMap > 0)
         {
             int mapLevelCurrent = playerService.GetLevel();
             playerService.SetLevel(mapLevelCurrent + 1);
@@ -565,7 +564,7 @@ public class GameController : MonoBehaviour
             playerService.SetAds(numAds + 1);
             SceneManager.LoadScene(Constanst.GamePlayScene);
         }
-        
+
     }
     public void OnButtonBooster(BoosterType boosterType)
     {
@@ -616,8 +615,8 @@ public class GameController : MonoBehaviour
                 cat.transform.position = temp;
             }
             isCheckInput = true;
+            audioService.PlayMatch();
             yield return new WaitForSeconds(1f);
-            
             foreach (Cat cat in listCatTemp)
             {
                 cat.StartAnimIdle = false;
@@ -639,6 +638,7 @@ public class GameController : MonoBehaviour
             {
                 //wait coin move 
                 yield return new WaitForSeconds(2f);
+                audioService.PlayWin();
                 int mapLevelCurrent = playerService.GetLevel();
                 view.ShowPanelNextMapLevel(mapLevelCurrent);
                 view.StatusCoinTop(true);
@@ -666,36 +666,43 @@ public class GameController : MonoBehaviour
     {
         int numAds = playerService.GetAds();
         playerService.SetAds(numAds + 1);
+        audioService.PlayButton();
         SceneManager.LoadScene(Constanst.GamePlayScene);
+
     }
     public void OnPanelReset(bool status)
     {
         isPause = status;
         view.StatusCoinTop(status);
         view.PanelReset(status);
-    }    
+        audioService.PlayButton();
+    }
     public void OnPanelGetCoin(bool status)
     {
         isPause = status;
         view.PanelGetCoin(status);
+        audioService.PlayButton();
     }
     public void OnPanelHome(bool status)
     {
         isPause = status;
         view.PanelHome(status);
+        audioService.PlayButton();
     }
     public void OnPanelSetting(bool status)
     {
         isPause = status;
         view.PanelSetting(status);
+        audioService.PlayButton();
+
     }
     public void OnPanelShop(bool status)
     {
-        if(status)
+        if (status)
         {
             isPause = true;
             view.PanelShop(true);
-        }    
+        }
         else
         {
             if (playerService.GetSkinCat().Count < 8)
@@ -704,41 +711,46 @@ public class GameController : MonoBehaviour
             {
                 isPause = false;
                 view.PanelShop(false);
-            } 
-        }    
-        
+            }
+        }
+        audioService.PlayButton();
     }
     public void OnPanelLimitPacked(bool status)
     {
         isPause = status;
         view.StatusCoinTop(status);
         view.PanelLimitPacked(status);
+        audioService.PlayButton();
     }
     public void OnPanelNextMapBooster(bool status)
     {
         isPause = status;
         view.PanelBoosterNextMap(status);
+        audioService.PlayButton();
     }
     public void OnPanelRollbackBooster(bool status)
     {
         isPause = status;
         view.PanelBoosterRollback(status);
+        audioService.PlayButton();
     }
     public void OnPanelAddBarBooster(bool status)
     {
         isPause = status;
         view.PanelBoosterAddBar(status);
+        audioService.PlayButton();
     }
     //Buy booster
     public void OnButtonBuyBooster(BoosterType boosterType, int quantity)
     {
+        audioService.PlayButton();
         int score = playerService.GetScore();
         int totalPrice;
         switch (boosterType)
         {
             case BoosterType.Add:
                 //get price
-                totalPrice = (quantity == 1) ? model.PriceOneAddBarBooster : (quantity == 3) ? model.PriceThreeAddBarBooster: 0;
+                totalPrice = (quantity == 1) ? model.PriceOneAddBarBooster : (quantity == 3) ? model.PriceThreeAddBarBooster : 0;
                 if (score >= totalPrice)
                 {
                     int scoreCurrent = score - totalPrice;
@@ -808,27 +820,27 @@ public class GameController : MonoBehaviour
             {
                 StartCoroutine(OnTextStatusOneSecond(Constanst.TextStatusFail));
             }
-            
+
         }
 
     }
     public void SetSkinOwned(int index, int value)
     {
         List<int> skinBirdUsing = playerService.GetSkinCat();
-        skinBirdUsing.Insert(index-1, value);
+        skinBirdUsing.Insert(index - 1, value);
         playerService.SetSkinCat(skinBirdUsing);
-    }    
+    }
     public void ProcessUsing(SkinItem skinItem)
     {
-        if(skinItem.Status == StatusState.Own)
+        if (skinItem.Status == StatusState.Own)
         {
-            switch(skinItem.SkinType)
+            switch (skinItem.SkinType)
             {
                 case SkinType.Bird:
                     List<int> skinBirdUsing = playerService.GetSkinCat();
-                    if(skinBirdUsing.Count < 8)
+                    if (skinBirdUsing.Count < 8)
                     {
-                        panelShop.UpdateEquip(skinItem , SetSkinOwned);
+                        panelShop.UpdateEquip(skinItem, SetSkinOwned);
                     }
                     else StartCoroutine(OnTextStatusOneSecond(Constanst.TextFullBird));
                     break;
@@ -846,17 +858,17 @@ public class GameController : MonoBehaviour
                     break;
 
             }
-            
+
         }
         //Un pick bird
-        else if(skinItem.Status == StatusState.Equip && skinItem.SkinType == SkinType.Bird)
+        else if (skinItem.Status == StatusState.Equip && skinItem.SkinType == SkinType.Bird)
         {
             List<int> skinBirdUsing = playerService.GetSkinCat();
             panelShop.UpdateEquip(skinItem, SetSkinOwned);
             skinBirdUsing.Remove(skinItem.Id);
-                
+
             playerService.SetSkinCat(skinBirdUsing);
-        }    
+        }
     }
 
 }

@@ -498,19 +498,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b4f635bd2b8d344295bfcd1399ca6bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appsFlyerDevKey: unused
-  appsFlyerAppIdIos: unused
-  appsFlyerAppIdAndroid: unused
-  iAPRemoveAdsKey: unused
-  tosURL: unused
-  privacyURL: unused
-  rateURL: unused
-  maxSDKKey: unused
-  interstitialIdAndroid: unused
-  bannerIdAndroid: unused
-  rewardedIdAndroid: unused
-  mrecIdAndroid: unused
-  appOpenAdsIdAndroid: unused
+  appsFlyerDevKey: G3MBmMRHTuEpXbqyqSWGeK
+  appsFlyerAppIdIos: 
+  appsFlyerAppIdAndroid: 
+  iAPRemoveAdsKey: game.onechain.galaxystacky.removeads
+  tosURL: https://abigames.com.vn/ct-terms-of-service/
+  privacyURL: https://abigames.com.vn/policy/
+  rateURL: https://play.google.com/store/apps/details?id=game.onechain.galaxystacky
+  maxSDKKey: ZoNyqu_piUmpl33-qkoIfRp6MTZGW9M5xk1mb1ZIWK6FN9EBu0TXSHeprC3LMPQI7S3kTc1-x7DJGSV8S-gvFJ
+  interstitialIdAndroid: 27c7462ebcc5de7c
+  bannerIdAndroid: 41785a08f2127b69
+  rewardedIdAndroid: ed536e4277f792d2
+  mrecIdAndroid: bffc49ee83e19868
+  appOpenAdsIdAndroid: ca-app-pub-9819920607806935/5618165634
   interstitialIdIOS: unused
   bannerIdIOS: unused
   rewardedIdIOS: unused
@@ -599,16 +599,16 @@ MonoBehaviour:
   - Name: buy
     AudioClip: {fileID: 8300000, guid: 295ffa7ddbbfac34598d9f7fefe475f5, type: 3}
     Volume: 1
-  - Name: chim bay
+  - Name: fly
     AudioClip: {fileID: 8300000, guid: 95b426b6099ebd94a8af84527a611d18, type: 3}
     Volume: 1
-  - Name: click chim
+  - Name: select
     AudioClip: {fileID: 8300000, guid: 91067d8f233b42b4bb596ab055038086, type: 3}
     Volume: 1
-  - Name: win game
+  - Name: win
     AudioClip: {fileID: 8300000, guid: 5808bbf859360d8469adf3e0290163b5, type: 3}
     Volume: 1
-  - Name: coin chim
+  - Name: match
     AudioClip: {fileID: 8300000, guid: dd82487b35700d348b93f31aee7fecf5, type: 3}
     Volume: 1
   music: {fileID: 745272479}

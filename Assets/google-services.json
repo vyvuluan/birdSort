@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "795642106499",
+    "project_id": "base-e6678",
+    "storage_bucket": "base-e6678.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795642106499:android:e7d660a87a35744759c1b6",
+        "android_client_info": {
+          "package_name": "game.lll.base"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "795642106499-01fll2p9ub518r2tggolosuecbkhd6qt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNMNM-QOM7p4ytGxpEmT7QcClgaZgwbLo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "795642106499-01fll2p9ub518r2tggolosuecbkhd6qt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "795642106499-309bbo5iq14rv0e6nadp3qq7ig79btd4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "game.3l.base"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
