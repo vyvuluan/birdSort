@@ -10899,6 +10899,7 @@ MonoBehaviour:
   catSpawner: {fileID: 2017848382}
   barSpawner: {fileID: 2017848383}
   panelShop: {fileID: 1037653674}
+  panelSettingController: {fileID: 1437943480}
 --- !u!1 &523768160
 GameObject:
   m_ObjectHideFlags: 0
@@ -15185,7 +15186,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1437943480}
+        m_TargetAssemblyTypeName: PanelSettingController, Game
+        m_MethodName: SoundChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &731154984
 GameObject:
   m_ObjectHideFlags: 0
@@ -26940,6 +26953,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  sliderMusic: {fileID: 0}
+  sliderSound: {fileID: 0}
 --- !u!114 &1161914894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33784,6 +33799,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  sliderMusic: {fileID: 1653160533}
+  sliderSound: {fileID: 730461569}
 --- !u!1 &1443993365
 GameObject:
   m_ObjectHideFlags: 0
@@ -38836,7 +38853,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1437943480}
+        m_TargetAssemblyTypeName: PanelSettingController, Game
+        m_MethodName: MusicChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1659362839
 GameObject:
   m_ObjectHideFlags: 0
@@ -41013,8 +41042,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2017848383}
-        m_TargetAssemblyTypeName: BarSpawner, Assembly-CSharp
-        m_MethodName: CreateMap
+        m_TargetAssemblyTypeName: BarSpawner, Game
+        m_MethodName: CreateMapWithList
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -47451,6 +47480,10 @@ MonoBehaviour:
   barPrefabSingle: {fileID: 7703670677955886011, guid: b40df56533903a2489dca3ff99b259ae, type: 3}
   catSpawner: {fileID: 2017848382}
   environment: {fileID: 1979480613}
+  quantityCatType: 6
+  countJump: 30
+  quantityBar: 8
+  indexMap: 11
 --- !u!1 &2025284966
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private CatSpawner catSpawner;
     [SerializeField] private BarSpawner barSpawner;
     [SerializeField] private PanelShop panelShop;
+    [SerializeField] private PanelSettingController panelSettingController;
     private bool isPause;
     private Bar barSelected;
     private Bar barSelectedTarget;
@@ -107,7 +108,7 @@ public class GameController : MonoBehaviour
             InterstitialAds();
 
         }
-
+        panelSettingController.SetPlayerService(playerService);
         model.ThrowIfNull();
         view.ThrowIfNull();
         catSpawner.ThrowIfNull();
@@ -870,5 +871,6 @@ public class GameController : MonoBehaviour
             playerService.SetSkinCat(skinBirdUsing);
         }
     }
+
 
 }
